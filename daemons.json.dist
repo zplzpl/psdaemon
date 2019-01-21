@@ -1,0 +1,19 @@
+[
+	{
+		"name": "lamp",
+		"depends": ["apache", "mysql"]
+	},
+	{
+		"name": "apache",
+		"exe": "httpd.exe"
+	},
+	{
+		"name": "mysql",
+		"exe": "mysqld.exe"
+	},
+	{
+		"name": "mongo",
+		"exe": "mongod.exe",
+		"args": "--dbpath=\"~\\scoop\\persist\\mongodb\\data2\""
+	}	
+]
