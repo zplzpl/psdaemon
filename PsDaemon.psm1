@@ -46,7 +46,6 @@ function script:runSpecificDaemon ($loDaemon, $loThrowOnExists = $true) {
     $private:transformedArgs = replaceTildaWithUserPath $loDaemon.args
     Start-Process -FilePath $loDaemon.exe -WindowStyle Hidden -RedirectStandardOutput $log -RedirectStandardError $errorLog -ArgumentList $transformedArgs
   }
-  # Invoke-Expression  "Start-Process $params" 
 }
 
 function script:killSpecificDaemon ($loDaemon) {
@@ -66,6 +65,10 @@ function script:killSpecificDaemon ($loDaemon) {
   }
 
   taskkill.exe /im $loDaemon.exe 2>&1 | Out-Null
+
+  if (checkIfDaemonRunning $loDaemon) {
+    taskkill.exe /f /im $loDaemon.exe 2>&1 | Out-Null
+  }
 }
 
 function runDependantDaemons ($loDaemon) {
@@ -112,7 +115,7 @@ function script:checkIfDaemonRunning ($loDaemon) {
   
   $private:filter = "IMAGENAME eq " + $loDaemon.exe
   $private:list = tasklist.exe /fi $filter
-  return (!$list.Contains("No tasks are running"))
+  return ("$list".Contains($loDaemon.exe))
 }
 
 function script:runDaemonScript ($loDaemon, $loDirectory) {
@@ -123,7 +126,8 @@ function script:runDaemonScript ($loDaemon, $loDirectory) {
 }
 
 function script:loadDaemonList {
-  $private:list = cat $PSScriptRoot\daemons.json | ConvertFrom-Json
+  $private:jsonLines = Get-Content -Path $PSScriptRoot\daemons.json
+  $private:list = ConvertFrom-Json -InputObject "$jsonLines"
   return $list
 }
 
