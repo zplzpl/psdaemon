@@ -1,3 +1,3 @@
-Import-Module .\PsDaemon.psm1 -Force
+$env:PSModulePath += ';' + $PSScriptRoot
 
 PsDaemonRunning

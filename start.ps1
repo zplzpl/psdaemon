@@ -7,7 +7,7 @@
 
 # But we will work with arguments
 
-Import-Module .\PsDaemon.psm1 -Force
+$env:PSModulePath += ';' + $PSScriptRoot
 
 $name = $args[0]
 PsDaemonRun $name

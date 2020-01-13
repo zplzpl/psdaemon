@@ -37,8 +37,8 @@ function script:runSpecificDaemon ($loDaemon, $loThrowOnExists = $true) {
     return
   }
 
-  $private:log = 'logs\' + $loDaemon.name + '.log.txt'
-  $private:errorLog = 'logs\' + $loDaemon.name + '.error.txt'
+  $private:log = $PSScriptRoot + '\logs\' + $loDaemon.name + '.log.txt'
+  $private:errorLog = $PSScriptRoot + '\logs\' + $loDaemon.name + '.error.txt'
 
   if (!$loDaemon.args) {
     Start-Process -FilePath $loDaemon.exe -WindowStyle Hidden -RedirectStandardOutput $log -RedirectStandardError $errorLog
@@ -119,7 +119,7 @@ function script:checkIfDaemonRunning ($loDaemon) {
 }
 
 function script:runDaemonScript ($loDaemon, $loDirectory) {
-  $private:beforeRunScript = $loDirectory + '\' + $loDaemon.name + '.ps1'
+  $private:beforeRunScript = $PSScriptRoot + '\' + $loDirectory + '\' + $loDaemon.name + '.ps1'
   if (Test-Path $beforeRunScript) {
     & $beforeRunScript
   }

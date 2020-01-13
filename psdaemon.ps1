@@ -1,4 +1,4 @@
-Import-Module .\PsDaemon.psm1 -Force
+$env:PSModulePath += ';' + $PSScriptRoot
 
 function script:run () {
     $private:command = $script:args[0]

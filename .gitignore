@@ -1,2 +1,3 @@
 daemons.json
 logs/*
+!logs/.gitkeep
