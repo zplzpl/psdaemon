@@ -14,6 +14,6 @@
 	{
 		"name": "mongo",
 		"exe": "mongod.exe",
-		"args": "--dbpath=\"~\\scoop\\persist\\mongodb\\data2\""
+		"args": "--dbpath=\"~\\scoop\\persist\\mongodb\\data\""
 	}	
 ]
